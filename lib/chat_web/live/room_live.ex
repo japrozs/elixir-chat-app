@@ -21,7 +21,8 @@ defmodule ChatWeb.RoomLive do
        username: username,
        topic: topic,
        user_list: [],
-       messages: [%{uuid: UUID.uuid4(), content: "#{username} joined the chat", username: "system"}],
+      #  messages: [%{uuid: UUID.uuid4(), content: "Hi #{username}, welcome to the chat", username: "system"}],
+      messages: [],
        temporary_assigns: [messages: []]
      )}
   end
@@ -64,9 +65,14 @@ defmodule ChatWeb.RoomLive do
 
   @impl true
   def handle_info(%{event: "new-message", payload: message}, socket) do
-    Logger.info(payload: message)
+    # Logger.info(payload: message)
     # the ++ operator merges two arrays
     {:noreply, assign(socket, messages: [message])}
+  end
+
+  def gen_random_color() do
+    colors = ["#FBBF24", "#059669", "#DC2626", "#2563EB", "#8B5CF6", "#DB2777"]
+    Enum.random(colors)
   end
 
 end
