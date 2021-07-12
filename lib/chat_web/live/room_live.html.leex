@@ -1,0 +1,22 @@
+<h3>Current Room : <span id="room-name"><%= @room_id %></span> as <span id='username'><%= @username %></span></h3>
+<div id="chat-container">
+	<%#  %>
+	<div id="chat-messages" phx-update="append">
+		<%= for message <- @messages do %>
+			<%= if message.username == "system" do%>
+				<p id="<%= message.uuid %>" class="sys-msg"><span id="username"><%= message.username %></span> : <%= message.content %></p>
+			<% else %>
+				<p id="<%= message.uuid %>"><span id="username"><%= message.username %></span> : <%= message.content %></p>
+			<% end %>
+		<% end %>
+	</div>
+	<div id="user-list">
+	<h3>Users online</h3>
+	<%= for user <- @user_list do%>
+		<p><%= user %></p>
+	<% end %>
+	</div>
+</div>
+<%= f = form_for :chat, "#", id: "chat-form", phx_submit: :submit_message, phx_change: :form_update %>
+	<%= text_input f,:message, value: @message, placeholder: "Enter your message...", autocomplete: "off" %>
+	</form>
