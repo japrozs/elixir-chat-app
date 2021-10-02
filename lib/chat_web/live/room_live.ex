@@ -13,12 +13,14 @@ defmodule ChatWeb.RoomLive do
        ChatWeb.Endpoint.subscribe(topic)
        ChatWeb.Presence.track(self(), topic, username, %{})
     end
+    colors = ["#FBBF24", "#059669", "#DC2626", "#2563EB", "#8B5CF6", "#DB2777"]
     # this tracks our messages
     {:ok,
      assign(socket,
        room_id: room_id,
        message: "",
        username: username,
+       color: Enum.random(colors),
        topic: topic,
        user_list: [],
       #  messages: [%{uuid: UUID.uuid4(), content: "Hi #{username}, welcome to the chat", username: "system"}],
@@ -29,7 +31,7 @@ defmodule ChatWeb.RoomLive do
 
   @impl true
   def handle_event("submit_message", %{"chat" => %{"message" => message}}, socket) do
-    message = %{uuid: UUID.uuid4(), content: message, username: socket.assigns.username}
+    message = %{uuid: UUID.uuid4(), content: message, username: socket.assigns.username, color: socket.assigns.color}
     Logger.info(message: message)
 
     ChatWeb.Endpoint.broadcast(socket.assigns.topic, "new-message", message)
@@ -68,11 +70,6 @@ defmodule ChatWeb.RoomLive do
     # Logger.info(payload: message)
     # the ++ operator merges two arrays
     {:noreply, assign(socket, messages: [message])}
-  end
-
-  def gen_random_color() do
-    colors = ["#FBBF24", "#059669", "#DC2626", "#2563EB", "#8B5CF6", "#DB2777"]
-    Enum.random(colors)
   end
 
 end

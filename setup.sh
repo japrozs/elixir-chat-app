@@ -21,3 +21,7 @@ npm install
 #install the phoneix dependencies
 cd ..
 mix deps.get
+mix phx.gen.secret
+# place the secret from the phx.gen.secret comand
+# into the config/prod.secret.exs file in the
+# ChatWeb.Endpoint configuration

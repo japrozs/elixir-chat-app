@@ -30,7 +30,7 @@
 			<%= if message.username == "system" do%>
 				<p id="<%= message.uuid %>"  class="sys-msg msg"><span id="username"><%= message.username %></span> : <%= message.content %></p>
 			<% else %>
-				<p id="<%= message.uuid %>" class="msg"><span id="username" style="font-family : 'Inter';font-weight: bold;color: <%= gen_random_color() %>;"><%= message.username %></span> : <%= message.content %></p>
+				<p id="<%= message.uuid %>" class="msg"><span id="username" style="font-family : 'Inter';font-weight: bold;color : <%= message.color %>"><%= message.username %></span> : <%= message.content %></p>
 			<% end %>
 		<% end %>
 		</div>
@@ -58,7 +58,7 @@ btn.onclick = () => {
 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="white"/>
 </svg>
 </div>
-Invite your family and friends to this room by sharing the following link<br/>
+Invite your family and friends to this room by sharing the following link<br/><br/>
 <a href="${window.location.origin}/<%=@room_id %>">${window.location.origin}/<%=@room_id %></a>`
 	div.style.opacity = "0.9";
 
